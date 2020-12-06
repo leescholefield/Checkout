@@ -139,5 +139,21 @@ namespace UnitTests.Services
         }
 
         #endregion
+
+        #region SetPricePromotion Tests
+
+        [TestMethod()]
+        public void SetPricePromotion_Is_Applied_When_We_Have_Required_Number_Items()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new SetPricePromotion("S", 2, 10));
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 2);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(10m, result);
+        }
+
+        #endregion
     }
 }

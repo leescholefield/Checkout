@@ -56,6 +56,10 @@ namespace Core.Services
                 // price of a single batch multiplied by how many batches we have
                 total = (batchPrice - batchDiscount) * (amount / promo.NumItemsRequired);
             }
+            else
+            {
+                total = ((SetPricePromotion)promo).Price * (amount / promo.NumItemsRequired);
+            }
 
             // add on price for any additional items
             if (amount % promo.NumItemsRequired != 0)
