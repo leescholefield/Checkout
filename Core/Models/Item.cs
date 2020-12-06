@@ -32,5 +32,24 @@
             Price = price;
         }
 
+        public override bool Equals(object obj)
+        {
+            //Check for null and compare run-time types.
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Item other = (Item)obj;
+                return (Price == other.Price) && (SKU == other.SKU);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return Price.GetHashCode() ^ SKU.GetHashCode();
+        }
+
     }
 }
