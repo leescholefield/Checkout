@@ -75,6 +75,8 @@ namespace UnitTests.Services
             Assert.AreEqual(40, result);
         }
 
+        #region PercentagePromotion tests
+
         [TestMethod()]
         public void PercentagePromotion_Is_Applied_When_Correct_Number_Items_In_Basket()
         {
@@ -86,5 +88,19 @@ namespace UnitTests.Services
 
             Assert.AreEqual(18m, result);
         }
+
+        [TestMethod()]
+        public void PercentagePromotion_Is_Not_Applied_When_Required_Number_Items_Not_Met()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("P")).Returns(new PercentagePromotion("P", 2, 10));
+            Basket basket = new Basket();
+            basket.Add(new Item("P", 10), 1);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(10m, result);
+        }
+
+        #endregion
     }
 }

@@ -39,6 +39,11 @@ namespace Core.Services
 
         private decimal ApplyPromotion(Promotion promo, Item item, int amount)
         {
+            if (amount < promo.NumItemsRequired)
+            {
+                return item.Price * amount;
+            }
+
             decimal total = 0;
             if (promo.GetType() == typeof(PercentagePromotion))
             {
