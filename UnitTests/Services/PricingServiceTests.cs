@@ -205,6 +205,19 @@ namespace UnitTests.Services
 
         #endregion
 
-        
+        [TestMethod()]
+        public void Both_Percentage_And_SetPrice_Promotions_Are_Applied()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new SetPricePromotion("S", 2, 15));
+            _mockedPromoRepo.Setup(x => x.Get("P")).Returns(new PercentagePromotion("P", 2, 10));
+
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 2);
+            basket.Add(new Item("P", 10), 2);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(33m, result);
+        }
     }
 }
