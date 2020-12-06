@@ -39,5 +39,17 @@ namespace UnitTests.Services
 
             Assert.AreEqual(5m, result);
         }
+
+        [TestMethod()]
+        public void Returns_Correct_Result_With_Different_Items_In_Basket()
+        {
+            Basket basket = new Basket();
+            basket.Add(new Item("T", 5));
+            basket.Add(new Item("R", 10));
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(15m, result);
+        }
     }
 }
