@@ -166,6 +166,18 @@ namespace UnitTests.Services
             Assert.AreEqual(20m, result);
         }
 
+        [TestMethod()]
+        public void SetPricePromotion_Is_Not_Applied_To_Additional_Items_When_Count_Is_Not_Multiple_Of_RequiredItems()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new SetPricePromotion("S", 2, 15));
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 3);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(25m, result);
+        }
+
         #endregion
     }
 }
