@@ -22,7 +22,7 @@ namespace Core.Services
 
             foreach(KeyValuePair<Item, int> entry in basket)
             {
-                total += entry.Key.Price;
+                total += entry.Key.Price * entry.Value;
             }
 
             return total;
