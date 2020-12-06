@@ -19,5 +19,14 @@ namespace UnitTests.Services
             _mockedPromoRepo = new Mock<IRepository<Promotion>>();
             Service = new PricingService(_mockedPromoRepo.Object);
         }
+
+        [TestMethod()]
+        public void Returns_0_When_Basket_Is_Empty()
+        {
+            Basket basket = new Basket();
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(0m, result);
+        }
     }
 }

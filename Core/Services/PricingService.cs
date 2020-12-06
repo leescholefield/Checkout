@@ -1,6 +1,5 @@
 ﻿using Core.Models;
 using Core.Repository;
-using System;
 
 namespace Core.Services
 {
@@ -18,7 +17,9 @@ namespace Core.Services
 
         public decimal CalculateBasketPrice(Basket basket)
         {
-            throw new NotImplementedException();
+            decimal total = 0;
+
+            return total;
         }
     }
 }
