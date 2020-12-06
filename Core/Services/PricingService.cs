@@ -1,5 +1,6 @@
 ﻿using Core.Models;
 using Core.Repository;
+using System.Collections.Generic;
 
 namespace Core.Services
 {
@@ -18,6 +19,11 @@ namespace Core.Services
         public decimal CalculateBasketPrice(Basket basket)
         {
             decimal total = 0;
+
+            foreach(KeyValuePair<Item, int> entry in basket)
+            {
+                total += entry.Key.Price;
+            }
 
             return total;
         }
