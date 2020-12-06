@@ -56,6 +56,12 @@ namespace Core.Services
                 total = batchPrice - batchDiscount;
             }
 
+            // add on price for any additional items
+            if (amount % promo.NumItemsRequired != 0)
+            {
+                total += (amount % promo.NumItemsRequired) * item.Price;
+            }
+
             return total;
         }
     }
