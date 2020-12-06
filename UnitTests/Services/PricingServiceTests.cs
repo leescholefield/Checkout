@@ -190,6 +190,21 @@ namespace UnitTests.Services
             Assert.AreEqual(30m, result);
         }
 
+        [TestMethod()]
+        public void SetPricePromotion_Is_Not_Applied_To_Different_Items()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new SetPricePromotion("S", 2, 15));
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 2);
+            basket.Add(new Item("R", 5), 1);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(20m, result);
+        }
+
         #endregion
+
+        
     }
 }
