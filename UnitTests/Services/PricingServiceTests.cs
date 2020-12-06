@@ -178,6 +178,18 @@ namespace UnitTests.Services
             Assert.AreEqual(25m, result);
         }
 
+        [TestMethod()]
+        public void SetPricePromotion_Is_Stacked()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new SetPricePromotion("S", 2, 15));
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 4);
+
+            decimal result = Service.CalculateBasketPrice(basket);
+
+            Assert.AreEqual(30m, result);
+        }
+
         #endregion
     }
 }
