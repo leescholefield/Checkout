@@ -53,7 +53,8 @@ namespace Core.Services
                 decimal batchPrice = item.Price * promo.NumItemsRequired;
                 // how much we should deduct from batchPrice
                 decimal batchDiscount = batchPrice * percentage;
-                total = batchPrice - batchDiscount;
+                // price of a single batch multiplied by how many batches we have
+                total = (batchPrice - batchDiscount) * (amount / promo.NumItemsRequired);
             }
 
             // add on price for any additional items
