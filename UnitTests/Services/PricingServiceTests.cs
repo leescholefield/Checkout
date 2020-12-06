@@ -3,6 +3,7 @@ using Core.Repository;
 using Core.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace UnitTests.Services
 {
@@ -73,6 +74,17 @@ namespace UnitTests.Services
             decimal result = Service.CalculateBasketPrice(basket);
 
             Assert.AreEqual(40, result);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NotImplementedException))]
+        public void Throws_Exception_With_Unrecognised_Promotion()
+        {
+            _mockedPromoRepo.Setup(x => x.Get("S")).Returns(new TestPromotion());
+            Basket basket = new Basket();
+            basket.Add(new Item("S", 10), 2);
+
+            Service.CalculateBasketPrice(basket);
         }
 
         #region PercentagePromotion tests
@@ -218,6 +230,14 @@ namespace UnitTests.Services
             decimal result = Service.CalculateBasketPrice(basket);
 
             Assert.AreEqual(33m, result);
+        }
+
+        /// <summary>
+        /// stub implementaiton of promotion so we can test if pricingservice throws exception with unregonised promotion
+        /// </summary>
+        public class TestPromotion : Promotion
+        {
+            public TestPromotion() : base("T", 2) { }
         }
     }
 }
